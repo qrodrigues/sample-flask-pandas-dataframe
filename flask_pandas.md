@@ -140,3 +140,6 @@ Désormais, la première étape du pipeline est le build du Dockerfile. Maintena
 Pour cela, je me rend dans le projet, et je configure une action à la suite du build, et je sélectionne la construction du projet **flask-panda-build**.
 
 Mon pipeline est désormais entièrement fonctionnel.
+
+# Conclusion
+Nous avons réaliser un pipeline, du Dockerfile jusqu'au test, permettant, au push sur Github, de build et déployer notre image, et d'effectuer des tests pour vérifier si cela fonctionne.
