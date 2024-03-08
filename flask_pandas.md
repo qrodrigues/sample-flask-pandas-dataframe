@@ -72,6 +72,9 @@ si nécessaire, je peux supprimer le container si il existe déjà
 docker rm -f flask-fil-rouge
 ```
 
+![image](https://github.com/qrodrigues/sample-flask-pandas-dataframe/assets/84842857/987baa4f-a0b7-4c4f-a7c1-c9ce6cf30653)
+
+
 Pour envoyer l'image sur Dockerhub, je me connecte au Docker hub, puis je tag l'image, et je la push sur dockerhub.
 ```shell
 docker login -u qrodrigues19
@@ -104,6 +107,9 @@ Pour que cela fonctionne, j'ai pris le soin d'ajouter la règle parserules dans 
 
 J'ajoute une seconde action après le build, **Publish Performance test result report**, qui va me publier mon résultat de test, avec le fichier source **testresult.jlt**.
 
+![image](https://github.com/qrodrigues/sample-flask-pandas-dataframe/assets/84842857/96292f54-94db-4380-beb9-5c1c1b74b13e)
+
+
 Et voilà, le test est fonctionnel.
 
 # Jenkins
@@ -130,6 +136,8 @@ docker image tag flask-fil-rouge qrodrigues19/flask-panda
 docker push qrodrigues19/flask-panda
 ```
 
+![image](https://github.com/qrodrigues/sample-flask-pandas-dataframe/assets/84842857/99a55084-4f77-464c-b222-79fb2c2c8db3)
+
 Maintenant que cela est configuré, je peux build mon Docker automatiquement après chaque push sur github.
 
 ## Pipeline
@@ -143,3 +151,5 @@ Mon pipeline est désormais entièrement fonctionnel.
 
 # Conclusion
 Nous avons réaliser un pipeline, du Dockerfile jusqu'au test, permettant, au push sur Github, de build et déployer notre image, et d'effectuer des tests pour vérifier si cela fonctionne.
+
+![image](https://github.com/qrodrigues/sample-flask-pandas-dataframe/assets/84842857/c80cc031-3f0c-40f6-aafb-6bb738e30183)
