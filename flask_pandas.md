@@ -151,9 +151,11 @@ Mon pipeline est désormais entièrement fonctionnel.
 
 # Goland et Jenkins
 Pour configurer Goland avec Jenkins, j'ai cliqué dans le menu à droite de Goland, sur **Jenkins** et j'ai ajouté mon serveur Jenkins.
+
 ![image](https://github.com/qrodrigues/sample-flask-pandas-dataframe/assets/84842857/525dd228-f5a1-44ae-b08e-22ba92e72d87)
 
 et j'ai accès à mes différents jobs.
+
 ![image](https://github.com/qrodrigues/sample-flask-pandas-dataframe/assets/84842857/d0983411-2a7d-4411-9e8c-75353ef8ce69)
 
 # Conclusion
