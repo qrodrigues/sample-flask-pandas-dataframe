@@ -90,3 +90,53 @@ Une fois mon plan de test créé et testé, je récupère le fichier de test, je
 
 ## Jenkins
 Sur la partie Jenkins, je créé un nouveau projet de test, il s'appelle : **flask-panda-jmeter**. Je le lis à mon repos github : https://github.com/qrodrigues/sample-flask-pandas-dataframe.git.
+
+Je choisi en étape de build, l'exécution d'un script shell, le script est le suivant
+```shell
+jmeter -Jjmeter.save.saveservice.output_format=xml -Jjmeter.save.saveservice.response_data.on_error=true -n -t flask_test_plan.jmx  -l testresult.jlt
+```
+
+Je vérifie que j'utilise bien, dans le script shell, le fichier de test créé par JMeter (**flask_test_plan.jmx**).
+
+En action à la suite du build, je configure une **Console output (build log) parsing**, avec une règle de projet qui est **parserules**.
+
+Pour que cela fonctionne, j'ai pris le soin d'ajouter la règle parserules dans mon projet. Et je l'ai bien push sur le repos git.
+
+J'ajoute une seconde action après le build, **Publish Performance test result report**, qui va me publier mon résultat de test, avec le fichier source **testresult.jlt**.
+
+Et voilà, le test est fonctionnel.
+
+# Jenkins
+## Build automatique du projet
+Afin de lancer le build automatique de mon projet, notament après un push, je vais créé un webhook github, relié à Jenkins, pour cela je l'ajoute dans mon repos github avec l'url : http://34.155.157.127:32500/github-webhook/
+
+Ensuite, je créé un nouvel item sur Jenkins, que je nomme **flask-panda-build**. Je le relis à mon repository Git : https://github.com/qrodrigues/sample-flask-pandas-dataframe.
+
+Je coche **GitHub hook trigger for GITScm polling** pour démarrer le build au push github.
+
+Et j'exécute des commandes shell. Aujourd'hui, les builds docker ne fonctionnent pas avec la VM fournie, cependant les commandes à exécuter sont les suivantes :
+```shell
+# Build image
+docker build -t fil-rouge .
+
+docker rm -f flask-fil-rouge
+docker run -d -p 31201:5000 --name flask-fil-rouge flask-fil-rouge
+
+# Login to docker hub
+docker login -u qrodrigues19
+
+# Push image
+docker image tag flask-fil-rouge qrodrigues19/flask-panda
+docker push qrodrigues19/flask-panda
+```
+
+Maintenant que cela est configuré, je peux build mon Docker automatiquement après chaque push sur github.
+
+## Pipeline
+Afin de créer mon pipeline Jenkins, je vais créer une nouvelle vue, et je vais lui configurer un job initial, c'est **flask-panda-build**.
+
+Désormais, la première étape du pipeline est le build du Dockerfile. Maintenant, je vais configurer le projet **flask-panda-build** pour que quand il termine, il lancer automatiquement le projet de test jmeter. Ainsi, le pipeline aura une deuxième étape.
+
+Pour cela, je me rend dans le projet, et je configure une action à la suite du build, et je sélectionne la construction du projet **flask-panda-build**.
+
+Mon pipeline est désormais entièrement fonctionnel.
